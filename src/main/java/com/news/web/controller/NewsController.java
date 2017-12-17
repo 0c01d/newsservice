@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,14 +28,14 @@ public class NewsController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST)
-    public NewsResponse createNews(@RequestBody NewsRequest newsRequest, HttpServletResponse response) {
+    public NewsResponse createNews(@Valid @RequestBody NewsRequest newsRequest, HttpServletResponse response) {
         News news = newsService.createNews(newsRequest);
         response.addHeader(HttpHeaders.LOCATION, "/news/" + news.getId());
         return new NewsResponse(news);
     }
 
     @RequestMapping(value = "/{newsId}", method = RequestMethod.PATCH)
-    public NewsResponse updateNews(@PathVariable("newsId") final Integer newsId, @RequestBody NewsRequest newsRequest) {
+    public NewsResponse updateNews(@PathVariable("newsId") final Integer newsId,@Valid @RequestBody NewsRequest newsRequest) {
         return new NewsResponse(newsService.updateNews(newsId, newsRequest));
     }
 
