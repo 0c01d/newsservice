@@ -7,8 +7,8 @@ import org.springframework.data.domain.Page;
 public interface NewsService {
 
     News createNews(NewsRequest newsRequest);
-    News getNewsById(Integer newsId);
+    News getNewsById(Long newsId);
     Page<News> getNewsList(Integer page, Integer size);
-    News updateNews(Integer newsId, NewsRequest newsRequest);
-    void deleteNews(Integer id);
+    News updateNews(Long newsId, NewsRequest newsRequest);
+    void deleteNews(Long id);
 }

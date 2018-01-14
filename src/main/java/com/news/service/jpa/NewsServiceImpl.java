@@ -25,29 +25,31 @@ public class NewsServiceImpl implements NewsService {
     @Override
     @Transactional
     public News createNews(NewsRequest newsRequest) {
-        News news = new News()
-                .setNewscontent(newsRequest.getNewscontent());
-        return newsRepository.save(news);
-    }
-
-    @Override
-    public News updateNews(Integer newsId, NewsRequest newsRequest) {
-        News news = this.getNewsById(newsId);
-        if (news == null) {
-            throw new EntityNotFoundException("News '{" + newsId + "}' not found");
-        }
-        news.setNewscontent(newsRequest.getNewscontent() != null ? newsRequest.getNewscontent() : news.getNewscontent());
+        News news = new News();
+                news.setNewscontent(newsRequest.getNewscontent());
         return newsRepository.save(news);
     }
 
     @Override
     @Transactional
-    public News getNewsById(Integer newsId) {
-        return newsRepository.findById(newsId)
-                .orElseThrow(() -> new EntityNotFoundException("Profile '{" + newsId + "}' not found"));
+    public News updateNews(Long newsId, NewsRequest newsRequest) {
+        News news = this.getNewsById(newsId);
+        if (news == null) {
+            throw new EntityNotFoundException("News '{" + newsId + "}' not found");
+        }
+//        news.setNewscontent(newsRequest.getNewscontent() != null ? newsRequest.getNewscontent() : news.getNewscontent());
+        return newsRepository.save(news);
     }
 
     @Override
+    @Transactional
+    public News getNewsById(Long newsId) {
+        return newsRepository.findById(newsId)
+                .orElseThrow(() -> new EntityNotFoundException("News '{" + newsId + "}' not found"));
+    }
+
+    @Override
+    @Transactional
     public Page<News> getNewsList(Integer page, Integer size) {
         if(page == null)
             page = 0;
@@ -57,7 +59,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void deleteNews(Integer id) {
+    @Transactional
+    public void deleteNews(Long id) {
         newsRepository.deleteById(id);
     }
 }

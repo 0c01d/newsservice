@@ -1,15 +1,20 @@
 package com.news.web.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.news.domain.News;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewsResponse {
-    private Integer id;
+    private Long id;
     private String newscontent;
 
+    public Long getId() {
+        return id;
+    }
+    public String getNewscontent() {
+        return newscontent;
+    }
 
     public NewsResponse(News news) {
         this.id = news.getId();

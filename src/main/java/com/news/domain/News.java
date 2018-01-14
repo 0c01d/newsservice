@@ -1,22 +1,35 @@
 package com.news.domain;
 
-import lombok.Data;
-import lombok.experimental.Accessors;
-
 import javax.persistence.*;
 
-@Data
 @Entity
-@Accessors(chain = true)
 @Table(name = "news", schema = "news_service")
 public class News {
 
     @Id
     @Column(name = "news_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Long id;
 
-    @Column(name = "newscontent")
-    public String newscontent;
+    @Column(name = "newsContent")
+    private String newscontent;
 
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getNewscontent() {
+        return newscontent;
+    }
+    public void setNewscontent(String newscontent) {
+        this.newscontent = newscontent;
+    }
+
+    public News(){}
+
+    public News(String newscontent) {
+        this.newscontent = newscontent;
+    }
 }

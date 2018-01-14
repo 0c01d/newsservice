@@ -35,12 +35,12 @@ public class NewsController {
     }
 
     @RequestMapping(value = "/{newsId}", method = RequestMethod.PATCH)
-    public NewsResponse updateNews(@PathVariable("newsId") final Integer newsId,@Valid @RequestBody NewsRequest newsRequest) {
+    public NewsResponse updateNews(@PathVariable("newsId") final Long newsId,@Valid @RequestBody NewsRequest newsRequest) {
         return new NewsResponse(newsService.updateNews(newsId, newsRequest));
     }
 
     @RequestMapping(value = "/{newsId}", method = RequestMethod.GET)
-    public NewsResponse getNewsById(@PathVariable("newsId") Integer newsId) {
+    public NewsResponse getNewsById(@PathVariable("newsId") Long newsId) {
         return new NewsResponse(newsService.getNewsById(newsId));
     }
 
@@ -55,7 +55,7 @@ public class NewsController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/{newsId}", method = RequestMethod.DELETE)
-    public void deleteNews(@PathVariable Integer newsId) {
+    public void deleteNews(@PathVariable Long newsId) {
         newsService.deleteNews(newsId);
     }
 }
